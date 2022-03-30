@@ -6,6 +6,8 @@ contract AuthenticatorProvider {
     address owner;
     uint32 otpValidFor;
 
+    uint256 passwordSeed = 123456789;
+
     struct OneTimePassword {
         uint256 password;
         uint256 generatedAt;
@@ -22,8 +24,18 @@ contract AuthenticatorProvider {
 
     // internal
     // should generate random string of characters - one time password
-    function getNewOtp() public pure returns (uint256) {
-        return 123456789;
+    function getNewOtp() public view returns (uint256) {
+        // not actually random, just for testing
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        blockhash(block.number - 1),
+                        block.timestamp,
+                        msg.sender
+                    )
+                )
+            );
     }
 
     // only owner
