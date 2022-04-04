@@ -15,7 +15,7 @@ def test_getNewOtp():
     if not is_network_local():
         pytest.skip("Only for unit testing")
 
-    contract = contract = deploy()
+    contract = deploy()
 
     otp1 = contract.getNewOtp()
     otp2 = contract.getNewOtp()
