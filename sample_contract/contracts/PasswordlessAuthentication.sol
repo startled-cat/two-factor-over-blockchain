@@ -22,11 +22,11 @@ contract PasswordlessAuthentication {
         return false;
     }
 
-    function receiveAccess(address user) public returns (bool) {
-        if (givenAccessUntill[user][msg.sender] >= block.timestamp) {
-            givenAccessUntill[user][msg.sender] = 0;
-            return true;
-        }
-        return false;
+    function receiveAccess(address user) public {
+        require(
+            givenAccessUntill[user][msg.sender] >= block.timestamp,
+            "access was not given or is expired"
+        );
+        givenAccessUntill[user][msg.sender] = 0;
     }
 }
