@@ -1,0 +1,35 @@
+{
+  "4": {
+    "AuthenticatorProvider": [
+      "0x1AC54a5247AC82233F7748027Cb455fb44e99900"
+    ],
+    "PasswordlessAuthentication": [
+      "0x9C9dc4E357756e03038F7b924D9a84E21C5A467d",
+      "0x7308e47a900011D5783214460D37F4a11d0b559D"
+    ]
+  },
+  "421611": {
+    "PasswordlessAuthentication": [
+      "0xaC62a86E7c1F9fEB8106AA616d71b4370d7bC9de"
+    ]
+  },
+  "43113": {
+    "PasswordlessAuthentication": [
+      "0xaC62a86E7c1F9fEB8106AA616d71b4370d7bC9de"
+    ]
+  },
+  "80001": {
+    "AuthenticatorProvider": [
+      "0xaC62a86E7c1F9fEB8106AA616d71b4370d7bC9de"
+    ],
+    "PasswordlessAuthentication": [
+      "0xe13009f02C4A947f26c238F2A324167D478e796A",
+      "0x6738fB747C0c20085f6bFd3588bD7f172f39a30F"
+    ]
+  },
+  "97": {
+    "PasswordlessAuthentication": [
+      "0xe13009f02C4A947f26c238F2A324167D478e796A"
+    ]
+  }
+}
