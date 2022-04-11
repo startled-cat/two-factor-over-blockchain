@@ -3,10 +3,6 @@ networks:
   default: 'development'
   development:
     verify: False
-  rinkeby:
-    verify: True
-  mumbai_moralis:
-    verify: True
 dependencies:
   - OpenZeppelin/openzeppelin-contracts@4.5.0
   - smartcontractkit/chainlink-brownie-contracts@0.4.0
