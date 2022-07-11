@@ -1,25 +1,28 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.0;
 
 contract PasswordlessAuthentication {
     mapping(address => mapping(address => uint256)) public givenAccessUntill;
 
-    function giveAccess(address website, uint256 accessValidTime) public {
-        givenAccessUntill[msg.sender][website] =
+    function giveAccess(address application, uint256 accessValidTime) public {
+        require(accessValidTime >= 1, "Shortest access time is 1 second");
+        require(accessValidTime <= 3600, "Longest access time is 1 hour");
+        require(application != msg.sender, "You can't give access to yourself");
+        givenAccessUntill[msg.sender][application] =
             block.timestamp +
             accessValidTime;
     }
 
-    function checkAccess(address user, address website)
+    function checkAccess(address user, address application)
         public
         view
         returns (bool)
     {
-        if (givenAccessUntill[user][website] >= block.timestamp) {
+        if (givenAccessUntill[user][application] >= block.timestamp) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     function receiveAccess(address user) public {
