@@ -6,12 +6,15 @@ import pytest
 
 
 def test_deployment():
+    pytest.skip("skipping otp contract test")
+
     if not is_network_local():
         pytest.skip("Only for unit testing")
     contract = deploy()
 
 
 def test_getNewOtp():
+    pytest.skip("skipping otp contract test")
     if not is_network_local():
         pytest.skip("Only for unit testing")
 
