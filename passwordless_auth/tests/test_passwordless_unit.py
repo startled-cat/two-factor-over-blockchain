@@ -1,20 +1,20 @@
 from brownie import network, config, PasswordlessAuthentication, chain, exceptions
 from scripts.utils import get_account, is_network_local
-from scripts.passwordless.deploy import deploy
-from utils import only_local
+from scripts.deploy import deploy
+from utils import only_local, deploy_contract
 import pytest
 import time
 
 
 @only_local
-def test_passwordlessDeployment():
-    contract = deploy()
+@deploy_contract
+def test_passwordlessDeployment(contract=None):
     print(contract)
 
 
 @only_local
-def test_give_and_check_access():
-    contract = deploy()
+@deploy_contract
+def test_give_and_check_access(contract=None):
     user1 = get_account(0)
     user2 = get_account(1)
     app1 = get_account(2)
@@ -52,9 +52,8 @@ def test_give_and_check_access():
 
 
 @only_local
-def test_receiveAccess():
-
-    contract = deploy()
+@deploy_contract
+def test_receiveAccess(contract=None):
     user1 = get_account(0)
     user2 = get_account(1)
     app1 = get_account(2)

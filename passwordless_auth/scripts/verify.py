@@ -1,12 +1,12 @@
 
-from brownie import AuthenticatorProvider
+from brownie import PasswordlessAuthentication
 
 
 def verify():
-    authenticatorProvider = AuthenticatorProvider[-1]
-    print(f"Verifying contract at: {authenticatorProvider.address} ...")
-    AuthenticatorProvider.publish_source(authenticatorProvider)
-    return authenticatorProvider
+    contract = PasswordlessAuthentication[-1]
+    print(f"Verifying contract at: {contract.address} ...")
+    PasswordlessAuthentication.publish_source(contract)
+    return contract
 
 
 def main():

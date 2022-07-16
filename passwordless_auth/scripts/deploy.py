@@ -1,14 +1,15 @@
-from brownie import AuthenticatorProvider
+
+from brownie import PasswordlessAuthentication
 from scripts.utils import get_account
 
 
 def deploy():
     account = get_account()
-    authenticatorProvider = AuthenticatorProvider.deploy(
-        {"from": account})
+    contract = PasswordlessAuthentication.deploy(
+        {"from": account, "allow_revert": True, "gas_limit": 2_000_000})
     print(
-        f"AuthenticatorProvider has been deployed at address: {authenticatorProvider.address}")
-    return authenticatorProvider
+        f"PasswordlessAuthentication has been deployed at address: {contract.address}")
+    return contract
 
 
 def main():
