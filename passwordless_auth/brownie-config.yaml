@@ -4,7 +4,8 @@ networks:
   development:
     verify: False
 wallets:
-  from_key: ${PRIVATE_KEY}
+  from_key: ${PRIVATE_KEY1}
+  from_key2: ${PRIVATE_KEY2}
 
 # compiler default configuration
 compiler:
