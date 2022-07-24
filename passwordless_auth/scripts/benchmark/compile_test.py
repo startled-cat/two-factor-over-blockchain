@@ -124,46 +124,6 @@ def compile_from_source(source, settings):
     return contract
 
 
-# def compare_compiler_settings():
-#     user1 = get_account(0)
-#     app1 = get_account(1)
-#     contractSourceCode = PasswordlessAuthentication._sources.get(
-#         "PasswordlessAuthentication")
-#     # https://eth-brownie.readthedocs.io/en/stable/api-project.html?highlight=compile#main.compile_source
-
-#     # brownie supports solc versions from 0.4.22
-#     brownieSolcVersions = solcVersions[:57]
-#     compilerSettings = {
-#         "solc_version": "0.8.15",
-#         "optimize": True,
-#         "runs": 200,
-#         "evm_version": None,
-#     }
-
-#     stats = []
-
-#     for solcVersion in brownieSolcVersions:
-#         print(f"Testing solc version: {solcVersion}")
-#         compilerSettings["solc_version"] = solcVersion
-#         for runs in optimizeRuns:
-#             print(f"Testing runs: {runs}")
-#             compilerSettings["runs"] = runs
-#             compilerSettings["optimize"] = True if runs is not None else False
-#             contract = compile_from_source(
-#                 contractSourceCode, compilerSettings)
-
-#             s = measure_contract_stats(contract, n=1)
-#             s.pop("time")
-#             s.pop("userGasPrice")
-#             s.pop("appGasPrice")
-#             s["solcVersion"] = solcVersion
-#             s["solcOptimizerRuns"] = runs
-#             s["optimize"] = compilerSettings["optimize"]
-#             s["contractDeployGasUsed"] = contract.tx.gas_used
-#             stats.append(s)
-#     return stats
-
-
 def compare_compiler_versions(runs=10_000):
     contractSourceCode = PasswordlessAuthentication._sources.get(
         "PasswordlessAuthentication")
