@@ -3,22 +3,19 @@
 project_dir="/home/adamko-wsl/git/two-factor-over-blockchain"
 script_path="$project_dir/passwordless_auth/scripts/benchmark/test_passwordless_performance.py"
 network_names=(
-    xdai-test
-    aurora-test
-    harmony-testnet
-    ftm-test
-    optimism-test
-    avax-test
-    bsc-test
-    arbitrum-testnet
-    polygon-test
-    ropsten
-    goerli
-    kovan
     rinkeby
-    harmony-devnet
+    kovan
+    goerli
+    ropsten
     polygon-mumbai
     arbitrum-testnet
+    bsc-test
+    avax-test
+    optimism-test
+    ftm-test
+    harmony-devnet
+    xdai-test
+    aurora-test
 )
 # create directory for test results
 mkdir -p "$project_dir/data/benchmark/network"
