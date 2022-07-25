@@ -53,7 +53,7 @@ def test_speed():
     # sleep_between_runs = 1
 
     if len(PasswordlessAuthentication) < 1:
-        deploy()
+        exit("No contract deployed")
     contract = PasswordlessAuthentication[-1]
     print(f"{log_prefix()} contract: {contract.address}")
 
