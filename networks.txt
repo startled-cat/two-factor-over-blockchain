@@ -66,7 +66,7 @@ Arbitrum
     ├─id: arbitrum-testnet
     ├─chainid: 421611
     ├─explorer: http://testnet.arbiscan.io/api/
-    └─host: https://arb-rinkeby.g.alchemy.com/v2/$WEB3_ALCHEMY_PROJECT_ID
+    └─host: https://arb-rinkeby.g.alchemy.com/v2/${WEB3_ALCHEMY_PROJECT_ID}
 
 Avalanche
   ├─Mainnet
@@ -106,16 +106,16 @@ Binance Smart Chain
     └─host: https://bsc-dataseed.binance.org
 
 Fantom Opera
-  ├─Testnet
-  │ ├─id: ftm-test
-  │ ├─chainid: 4002
-  │ ├─explorer: https://explorer.testnet.fantom.network
-  │ └─host: https://rpc.testnet.fantom.network
-  └─Mainnet
-    ├─id: ftm-main
-    ├─chainid: 250
-    ├─explorer: https://api.ftmscan.com/api
-    └─host: https://rpc.ftm.tools
+  ├─Mainnet
+  │ ├─id: ftm-main
+  │ ├─chainid: 250
+  │ ├─explorer: https://api.ftmscan.com/api
+  │ └─host: https://rpc.ftm.tools
+  └─Testnet
+    ├─id: ftm-test
+    ├─chainid: 4002
+    ├─explorer: https://api-testnet.ftmscan.com/api
+    └─host: https://rpc.testnet.fantom.network
 
 Harmony
   ├─Mainnet (Shard 0)
@@ -123,11 +123,16 @@ Harmony
   │ ├─chainid: 1666600000
   │ ├─host: https://api.harmony.one
   │ └─multicall2: 0x3E01dD8a5E1fb3481F0F589056b428Fc308AF0Fb
-  └─Harmony Testnet Shard 0
-    ├─id: harmony-testnet
-    ├─chainid: 1666700000
-    ├─explorer: https://explorer.pops.one/
-    └─host: https://api.s0.b.hmny.io
+  ├─Harmony Testnet Shard 0
+  │ ├─id: harmony-testnet
+  │ ├─chainid: 1666700000
+  │ ├─explorer: https://explorer.pops.one/
+  │ └─host: https://api.s1.b.hmny.io
+  └─Harmony devnet Shard 0
+    ├─id: harmony-devnet
+    ├─chainid: 1666900000
+    ├─explorer: https://explorer.ps.hmny.io/
+    └─host: https://api.s0.ps.hmny.io
 
 Moonbeam
   └─Mainnet
@@ -164,11 +169,11 @@ Polygon
   │ ├─explorer: https://api-testnet.polygonscan.com/api
   │ ├─host: https://polygon-mumbai.infura.io/v3/$WEB3_INFURA_PROJECT_ID
   │ └─multicall2: 0x6842E0412AC1c00464dc48961330156a07268d14
-  └─Mumbai (Moralis)
-    ├─id: mumbai_moralis
+  └─Polygon Mumbai (Goërli)
+    ├─id: polygon-mumbai
     ├─chainid: 80001
-    ├─explorer: https://api-testnet.polygonscan.com/api/
-    └─host: https://speedy-nodes-nyc.moralis.io/$WEB3_MORALIS_PROJECT_ID/polygon/mumbai
+    ├─explorer: https://mumbai.polygonscan.com/
+    └─host: https://polygon-mumbai.g.alchemy.com/v2/${WEB3_ALCHEMY_POLYGON}
 
 XDai
   ├─Mainnet
