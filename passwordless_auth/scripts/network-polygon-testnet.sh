@@ -1,3 +1,3 @@
 #!/bin/bash
-brownie networks delete mumbai_moralis
-brownie networks add Polygon mumbai_moralis host='https://speedy-nodes-nyc.moralis.io/$WEB3_MORALIS_PROJECT_ID/polygon/mumbai' name='Mumbai (Moralis)' chainid=80001 explorer='https://api-testnet.polygonscan.com/api/'
+brownie networks delete polygon-mumbai
+brownie networks add Polygon polygon-mumbai host='https://polygon-mumbai.g.alchemy.com/v2/${WEB3_ALCHEMY_POLYGON}' name='Polygon Mumbai (Goërli)' chainid=80001 explorer='https://mumbai.polygonscan.com/'
