@@ -43,8 +43,8 @@ def execute_single_test(contract, db_path):
 
 def test_speed():
 
-    runs_per_h = 4
-    total_test_time = 12
+    runs_per_h = 3
+    total_test_time = 72
 
     total_runs = runs_per_h * total_test_time
     sleep_between_runs = 3600 / runs_per_h
