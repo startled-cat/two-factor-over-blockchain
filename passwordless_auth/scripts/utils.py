@@ -1,4 +1,5 @@
 import random
+import threading
 from brownie import Wei
 from datetime import datetime
 from brownie import network, accounts, config, chain
@@ -31,7 +32,15 @@ def get_account(index=None, id=None):
     print(f'get_account:  {acc.address}')
     return acc
 
+class WaitForConfirmationsThread(threading.Thread):
+    def __init__(self, tx, confirmations):
+        threading.Thread.__init__(self)
+        self.tx = tx
+        self.confirmations = confirmations
 
+    def run(self):
+        self.tx.wait(self.confirmations)
+            
 def measure_contract_stats(contract, n=1, confirmations=5):
     if is_network_local():
         user1 = get_account(0)
@@ -163,16 +172,27 @@ def execute_contract_function(contract, function_name, tx_params, args=[], confi
         for c in range(1, confirmations+1):
             print(f"{log_prefix()} waiting for {c} confirmations...")
 
+            # """can break and never end"""
             # tx.wait(c)
-            waited_for = 0
-            while tx.confirmations < c:
-                time.sleep(0.1)
-                waited_for += 0.1
-                if waited_for > 300:
-                    print(
-                        f"{log_prefix()} timed out while waiting for {c} confirmations")
-                    break
-
+            
+            # """ makes too much rpc calls """
+            # waited_for = 0
+            # while tx.confirmations < c:
+            #     time.sleep(0.1)
+            #     waited_for += 0.1
+            #     if waited_for > 300:
+            #         print(
+            #             f"{log_prefix()} timed out while waiting for {c} confirmations")
+            #         break
+            
+            confirmations_thread = WaitForConfirmationsThread(tx, c)
+            confirmations_thread.start()
+            confirmations_thread.join(timeout=300)
+            if confirmations_thread.is_alive():
+                print(f"{log_prefix()} confirmations_thread timed out while waiting for {c} confirmations")
+                confirmation_times.append(0)
+                continue
+                
             confirmation_times.append(time.time() - start_time)
             print(f"{log_prefix()} last confirmations time: ",
                   confirmation_times[-1])
@@ -187,3 +207,5 @@ def execute_contract_function(contract, function_name, tx_params, args=[], confi
             return execute_contract_function(contract, function_name, tx_params, args, confirmations, retires-1, retry_sleep=retry_sleep*1.5)
         else:
             raise e
+
+
