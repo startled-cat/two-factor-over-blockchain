@@ -9,9 +9,9 @@ network_names=(
     arbitrum-testnet
     polygon-test
     ropsten
-    goerli
-    kovan
-    rinkeby
+    goerli-alchemy
+    kovan-infura
+    rinkeby-alchemy
 )
 for i in "${network_names[@]}"; do
     echo "Deploying to $i ..."
