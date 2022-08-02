@@ -9,6 +9,8 @@ from tinydb import TinyDB, Query
 from datetime import datetime
 
 
+
+
 class LocalChainMineThread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
@@ -38,18 +40,17 @@ def execute_single_test(contract, db_path):
             for s in stats:
                 db.insert(s)
     except Exception as e:
-        print(e)
+        print(f"{log_prefix(error=True)}", e)
 
 
 def test_speed():
 
-    runs_per_h = 3
-    total_test_time = 72
+    # runs_per_h = 3
+    # total_test_time = 72
 
-    total_runs = runs_per_h * total_test_time
-    sleep_between_runs = 3600 / runs_per_h
-
-    # total_runs = 1
+    # total_runs = runs_per_h * total_test_time
+    # sleep_between_runs = 3600 / runs_per_h
+    total_runs = 1
     # sleep_between_runs = 1
 
     if len(PasswordlessAuthentication) < 1:
@@ -63,51 +64,48 @@ def test_speed():
     else:
         accounts.add(config["wallets"]["from_key"])
         accounts.add(config["wallets"]["from_key2"])
-        print(f'accounts:')
+        print(f'{log_prefix()} accounts:')
         for a in accounts:
-            print(f'    {a.address}')
+            print(f'{log_prefix()} {a.address}')
 
-    db_path = f'/home/adamko-wsl/git/two-factor-over-blockchain/data/benchmark/network/{network.show_active()}/{network.show_active()}_{total_runs}_{datetime.now().strftime("%y%m%d-%H%M")}.json'
-    with TinyDB(db_path) as db:
-        db.drop_tables()
-        db.close()
+    db_path = f'/home/adamko-wsl/git/two-factor-over-blockchain/data/benchmark/network/{network.show_active()}/{network.show_active()}.json'
+    # with TinyDB(db_path) as db:
+    #     db.drop_tables()
+    #     db.close()
 
     test_thread = None
     for _ in range(0, total_runs):
-        print(
-            "============================================================================")
-        print(
-            "============================================================================")
-        print(f"        Current datetime : {get_formatted_timestamp()}")
-        print(
-            f"        Running test no: {_+1}/{total_runs}; tests per hour: {runs_per_h}, total test time: {total_test_time}")
-        print(
-            "============================================================================")
-        print(
-            "============================================================================")
+        print(f"{log_prefix()} =============================================")
+        print(f"{log_prefix()} network : {network.show_active()}")
+        print(f"{log_prefix()} datetime : {get_formatted_timestamp()}")
+        print(f"{log_prefix()} Running test no: {_+1}/{total_runs};")
+        print(f"{log_prefix()} =============================================")
 
         test_thread = threading.Thread(target=execute_single_test,
                                        args=(contract, db_path))
         print(f"{log_prefix()} Starting test thread")
         test_thread.start()
-        print(f"{log_prefix()} Sleeping for {sleep_between_runs} seconds")
-        time.sleep(sleep_between_runs)
+        # print(f"{log_prefix()} Sleeping for {sleep_between_runs} seconds")
+        # time.sleep(sleep_between_runs)
         # join thread
         if test_thread.is_alive():
             print(f"{log_prefix()} Joining test thread")
-            test_thread.join()
+            test_thread.join(30*60)
+            if test_thread.is_alive():
+                print(f"{log_prefix(error=True)} Test thread timed out after 30 minutes")
+                
 
     if is_network_local():
-        test_thread.join()
         time.sleep(10)
         thread.stop()
         thread.join()
-        
-    with TinyDB(db_path) as db:
-        measurements = len(db.all())
-        print(f"{log_prefix()} saved measurements: {measurements}")
-    
+
+    # with TinyDB(db_path) as db:
+    #     measurements = len(db.all())
+    #     print(f"{log_prefix()} saved measurements: {measurements}")
+
     print(f"{log_prefix()} Exiting main thread")
+
 
 def main():
     test_speed()

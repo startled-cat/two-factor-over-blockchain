@@ -2,19 +2,27 @@ import random
 import threading
 from brownie import Wei
 from datetime import datetime
-from brownie import network, accounts, config, chain
+from brownie import network, accounts, config, chain, web3
 from brownie.network.gas.strategies import LinearScalingStrategy, ExponentialScalingStrategy
 import time
 LOCAL_BLOCKCHAIN_NETWORKS = ["development", "ganache-local"]
 FORKED_LOCAL_NETWORKS = ["mainnet-fork", "mainnet-fork-dev"]
 
 
+# convert any variable to int, if error, then return 0
+def to_int(value):
+    try:
+        return int(value)
+    except:
+        return 0
+
 def get_formatted_timestamp():
     return datetime.now().strftime('%y-%m-%d %H:%M:%S')
 
 
-def log_prefix():
-    return f'[INFO][{get_formatted_timestamp()}] > '
+def log_prefix(error=False):
+    m = "ERROR" if error else "INFO"
+    return f'[{network.show_active()}][{m}][{get_formatted_timestamp()}] '
 
 
 def is_network_local():
@@ -39,7 +47,10 @@ class WaitForConfirmationsThread(threading.Thread):
         self.confirmations = confirmations
 
     def run(self):
-        self.tx.wait(self.confirmations)
+        try:
+            self.tx.wait(self.confirmations)
+        except Exception as e:
+            print(f"{log_prefix(error=True)} in waiting thread:  {e}")
             
 def measure_contract_stats(contract, n=1, confirmations=5):
     if is_network_local():
@@ -52,16 +63,13 @@ def measure_contract_stats(contract, n=1, confirmations=5):
         user1 = get_account(index=available_accounts_indexes[0])
         app1 = get_account(index=available_accounts_indexes[1])
 
-    user_balance = user1.balance()
-    print(f'user1: {user1.address}')
-    print(f'    { Wei(user_balance).to("ether") } eth')
-    print(f'    { Wei(user_balance).to("gwei") } gwei')
-    print(f'    {     (user_balance) } wei')
-    app_balance = app1.balance()
-    print(f'app1: {app1.address}')
-    print(f'    {Wei(app_balance).to("ether") } eth')
-    print(f'    {Wei(app_balance).to("gwei") } gwei')
-    print(f'    {   (app_balance) } wei')
+    user_balance = to_int(user1.balance())
+    print(f'{log_prefix()}user1: {user1.address}')
+    print(f'{log_prefix()}{Wei(user_balance).to("ether")} eth; {Wei(user_balance).to("gwei")} gwei; {(user_balance)} wei')
+    app_balance = to_int(app1.balance())
+    print(f'{log_prefix()}app1: {app1.address}')
+    print(f'{log_prefix()}{Wei(app_balance).to("ether")} eth; {Wei(app_balance).to("gwei")} gwei; {(app_balance)} wei')
+
 
     # network.gas_price("auto")
 
@@ -108,9 +116,9 @@ def measure_contract_stats(contract, n=1, confirmations=5):
             x[prefix+"_timestamp"] = tx.timestamp
             x[prefix+"_time"] = confirmation_times
             x[prefix+"_tx_status"] = tx.status
-            x[prefix+"_gas_used"] = tx.gas_used
-            x[prefix+"_gas_price"] = tx.gas_price
-            x[prefix+"_cost"] = tx.gas_used * tx.gas_price
+            x[prefix+"_gas_used"] = to_int(tx.gas_used)
+            x[prefix+"_gas_price"] = to_int(tx.gas_price)
+            x[prefix+"_cost"] = to_int(tx.gas_used) * to_int(tx.gas_price)
 
         try:
             confirmation_times, tx = execute_contract_function(
@@ -123,12 +131,13 @@ def measure_contract_stats(contract, n=1, confirmations=5):
         except Exception as e:
             x["user_tx_status"] = -2
             x["user_error"] = str(e)
-            print(e)
+            print(f"{log_prefix(error=True)}" ,e)
         finally:
             pass
         
         
-        
+        waited_for = 0
+        check_access_result = None
         while True:
             check_access_result = contract.checkAccess(user1, app1, {"from": app1})
             print(f"{log_prefix()} check_access_result: {check_access_result}")
@@ -136,8 +145,16 @@ def measure_contract_stats(contract, n=1, confirmations=5):
                 break
             else:
                 time.sleep(1)
-        
+                waited_for += 1
+                if waited_for > 60:
+                    check_access_result = False
+                    break
+                    
+        if check_access_result == False:
+            print(f"{log_prefix(error=True)} checkAccess failed after {waited_for} seconds")
+            continue
 
+        
         try:
             confirmation_times, tx = execute_contract_function(
                 contract, "receiveAccess",
@@ -149,14 +166,16 @@ def measure_contract_stats(contract, n=1, confirmations=5):
         except Exception as e:
             x["app_tx_status"] = -2
             x["app_error"] = str(e)
-            print(e)
+            print(f"{log_prefix(error=True)}" ,e)
         finally:
             pass
 
         stats.append(x)
-        
-        print(f"{log_prefix()} user balance enough for : {user_balance / x['user_cost']} transactions")
-        print(f"{log_prefix()} app balance enough for  : {app_balance / x['app_cost']} transactions")
+        try:
+            print(f"{log_prefix()} user balance enough for : {user_balance / x['user_cost']} transactions")
+            print(f"{log_prefix()} app balance enough for  : {app_balance / x['app_cost']} transactions")
+        except Exception as e:
+            print(f"{log_prefix(error=True)}", e)
 
     return stats
 
@@ -189,7 +208,7 @@ def execute_contract_function(contract, function_name, tx_params, args=[], confi
             confirmations_thread.start()
             confirmations_thread.join(timeout=300)
             if confirmations_thread.is_alive():
-                print(f"{log_prefix()} confirmations_thread timed out while waiting for {c} confirmations")
+                print(f"{log_prefix(error=True)} confirmations_thread timed out while waiting for {c} confirmations")
                 confirmation_times.append(0)
                 continue
                 
@@ -199,11 +218,12 @@ def execute_contract_function(contract, function_name, tx_params, args=[], confi
 
         return confirmation_times, tx
     except Exception as e:
-        print(f"{log_prefix()} Transaction failed:", e)
+        print(f"{log_prefix(error=True)} Transaction failed:", e)
         if retires > 0:
             print(
                 f"{log_prefix()} Retrying in {retry_sleep} s...(retries left:", retires, ")")
             time.sleep(retry_sleep)
+            tx_params["nonce"] = web3.eth.get_transaction_count(tx_params["from"].address)+1
             return execute_contract_function(contract, function_name, tx_params, args, confirmations, retires-1, retry_sleep=retry_sleep*1.5)
         else:
             raise e
