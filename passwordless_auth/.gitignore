@@ -6,3 +6,4 @@ build/contracts
 build/interfaces
 build/tests.json
 reports/
+networks.yaml

@@ -10,9 +10,9 @@
 #     arbitrum-testnet
 #     polygon-test
 #     ropsten
-#     goerli
-#     kovan
-#     rinkeby
+#     goerli-alchemy
+#     kovan-infura
+#     rinkeby-alchemy
 #     harmony-devnet
 #     polygon-mumbai
 #     arbitrum-testnet

@@ -1,0 +1,162 @@
+[
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 100,
+        "optimize": true,
+        "contractDeployGasUsed": 269841
+    },
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 300,
+        "optimize": true,
+        "contractDeployGasUsed": 269841
+    },
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 500,
+        "optimize": true,
+        "contractDeployGasUsed": 269853
+    },
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 700,
+        "optimize": true,
+        "contractDeployGasUsed": 269841
+    },
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 900,
+        "optimize": true,
+        "contractDeployGasUsed": 280395
+    },
+    {
+        "userGasUsed": 42259.0,
+        "appGasUsed": 13924.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 1100,
+        "optimize": true,
+        "contractDeployGasUsed": 286065
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 1300,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 1500,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 1700,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 1900,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 2100,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 2300,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 2500,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 2700,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 2900,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 3100,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 3300,
+        "optimize": true,
+        "contractDeployGasUsed": 302943
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 3500,
+        "optimize": true,
+        "contractDeployGasUsed": 324082
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 3700,
+        "optimize": true,
+        "contractDeployGasUsed": 324082
+    },
+    {
+        "userGasUsed": 42223.0,
+        "appGasUsed": 13906.0,
+        "solcVersion": "0.8.15",
+        "solcOptimizerRuns": 3900,
+        "optimize": true,
+        "contractDeployGasUsed": 324082
+    }
+]

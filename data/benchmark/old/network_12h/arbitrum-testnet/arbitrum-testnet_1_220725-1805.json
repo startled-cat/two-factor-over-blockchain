@@ -1,0 +1,72 @@
+{
+    "_default": {
+        "1": {
+            "network": "arbitrum-testnet",
+            "confirmations": 5,
+            "timestamp": 1658765136.5412028,
+            "fee": null,
+            "user_hash": "0x69c7822345fdcd53e746879bd7b1ccb56a71dbd3706f8edea42d392b336be9b1",
+            "user_timestamp": 1658765096,
+            "user_time": [
+                4.168201446533203,
+                4.370544672012329,
+                22.359442949295044,
+                31.74849224090576,
+                39.29834985733032
+            ],
+            "user_tx_status": 1,
+            "user_gas_used": 523988,
+            "user_gas_price": 11923953,
+            "user_cost": 6248008284564,
+            "user_error": null,
+            "app_hash": "0x23e1abbab236d94a366b1f869b885d3c65408bb5d26051a3b0464d26cb9b2afe",
+            "app_timestamp": 1658765156,
+            "app_time": [
+                3.6654133796691895,
+                4.486007452011108,
+                13.537798404693604,
+                14.044012784957886,
+                19.452996969223022
+            ],
+            "app_tx_status": 1,
+            "app_gas_used": 459250,
+            "app_gas_price": 11923953,
+            "app_cost": 5476075415250,
+            "app_error": null
+        },
+        "2": {
+            "network": "arbitrum-testnet",
+            "confirmations": 5,
+            "timestamp": 1658765136.7565255,
+            "fee": null,
+            "user_hash": "0xd8d28c4a66cbeed4b6a5c036f5cb5ef59edb5e62af9314b5f21b081973492bc0",
+            "user_timestamp": 1658765096,
+            "user_time": [
+                4.357337713241577,
+                22.050525426864624,
+                31.473777055740356,
+                39.034040451049805,
+                41.37974715232849
+            ],
+            "user_tx_status": 1,
+            "user_gas_used": 525377,
+            "user_gas_price": 11923953,
+            "user_cost": 6264570655281,
+            "user_error": null,
+            "app_hash": "0x23f30c7d141899e72e5eacc2dbf8db875d0bfcc6e7d8a453d6a58c5d23897286",
+            "app_timestamp": 1658765156,
+            "app_time": [
+                3.640672445297241,
+                11.218993425369263,
+                11.732299566268921,
+                17.20095205307007,
+                18.629324436187744
+            ],
+            "app_tx_status": 1,
+            "app_gas_used": 457870,
+            "app_gas_price": 11923953,
+            "app_cost": 5459620360110,
+            "app_error": null
+        }
+    }
+}

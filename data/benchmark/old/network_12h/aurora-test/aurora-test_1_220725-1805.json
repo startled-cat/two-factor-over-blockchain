@@ -1,0 +1,38 @@
+{
+    "_default": {
+        "1": {
+            "network": "aurora-test",
+            "confirmations": 5,
+            "timestamp": 1658765136.8381727,
+            "fee": null,
+            "user_hash": "0x3460e63224f1dcb7aa53e8d099bf224184a0136699e73f8426ca29b6f3f24eab",
+            "user_timestamp": 1658765141,
+            "user_time": [
+                6.211463689804077,
+                7.625232934951782,
+                7.823962926864624,
+                9.103047847747803,
+                9.55223798751831
+            ],
+            "user_tx_status": 1,
+            "user_gas_used": 44371,
+            "user_gas_price": 70000000,
+            "user_cost": 3105970000000,
+            "user_error": null,
+            "app_hash": "0x37b69e912721d8e88a721d3857cdb060a3382a71145a38361f25baace58d1f0d",
+            "app_timestamp": 1658765150,
+            "app_time": [
+                6.664133787155151,
+                6.867154836654663,
+                7.9048848152160645,
+                8.706815958023071,
+                10.84767460823059
+            ],
+            "app_tx_status": 1,
+            "app_gas_used": 22235,
+            "app_gas_price": 70000000,
+            "app_cost": 1556450000000,
+            "app_error": null
+        }
+    }
+}

@@ -1,0 +1,13 @@
+rinkeby
+kovan-infura
+goerli
+ropsten
+polygon-ankr
+arbitrum-testnet
+bsc-test
+avax-test
+optimism-test
+ftm-test
+harmony-devnet
+xdai-test
+aurora-test
