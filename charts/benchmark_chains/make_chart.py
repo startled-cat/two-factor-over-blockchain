@@ -3,75 +3,123 @@ import matplotlib.pyplot as plt
 from parse_data import load_data
 import math
 from datetime import datetime
-
+import os
+from network_config import network_config
 networks_data = load_data()
+
+script_path = os.path.dirname(os.path.realpath(__file__))
+
+# list of nice, readable, aesthetic colors, that can be used in plots 
+plot_colors = [
+    '#1f77b4',  # muted blue
+    '#ff7f0e',  # safety orange
+    '#2ca02c',  # cooked asparagus green
+    '#d62728',  # brick red
+    '#9467bd',  # muted purple
+    '#8c564b',  # chestnut brown
+    '#e377c2',  # raspberry yogurt pink
+    '#7f7f7f',  # middle gray
+    '#bcbd22',  # curry yellow-green
+    '#17becf'   # blue-teal
+]
+
+
 
 
 def wei2gwei(n):
     return n / 1e9
 
+
 def wei2ether(n):
     return n / 1e18
 
 
-
-
-# for each network, calculate average cost for user and average cost for app
-
-networks_avg_cost = []
-network_names = []
-
-for (network, data) in networks_data:
-    avg_cost_user = 0
-    avg_cost_app = 0
+def plot_grouped_bar_chart_with_labels(labels, data, title, x_label, y_label, filename):
+    fig, ax = plt.subplots()
+    # increase margins around chart
+    plt.subplots_adjust(top=0.9, left=0.2, right=0.85, bottom=0.35)
+    # make chart wide
+    fig.set_size_inches(8, 5)
     
-    for m in data:
-        avg_cost_user += m["user_cost"]
-        avg_cost_app += m["app_cost"]
+    x = np.arange(len(labels))  # the label locations
+    width = 0.6  # the width of the bars
+    bar_width = width / len(data)  # the width of a single bar
+    cell_text = []
+    for i, d in enumerate(data):
+        values = d['values']
+        label = d['label']
+        color = d['color']
+        locations = x + (-width/2 + bar_width/2 + bar_width*i)
+        rectangle = ax.bar(locations, values, bar_width,
+                           label=label, color=color)
         
-    avg_cost_user /= len(data)
-    avg_cost_app /= len(data)
+
+        # ax.bar_label(rectangle, values)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+
+    # rotate x labels 90 degrees
+    plt.xticks(rotation=90)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+
+    # ax.grid(which="major", alpha=0.7, axis="x")
+    ax.grid(which="major", alpha=0.7, axis="y")
+    ax.yaxis.set_major_formatter(
+        lambda x, pos=None: f"{wei2gwei(x):,}"[:-2].replace(",", " ")+" gwei")
     
-    network_names.append(network)
-    networks_avg_cost.append((avg_cost_user, avg_cost_app))
+    plt.savefig(f"{script_path}/{filename}.svg")
     
-# prepare data for chart
-x = [i for i in range(0, len(networks_avg_cost))]
-x_labels = network_names
-
-y = [s[0] for s in networks_avg_cost]
-y2 = [s[1] for s in networks_avg_cost]
-
-# prepare chart
-# plt.rcParams["figure.figsize"] = (8, 5)
-fig, ax1 = plt.subplots()
-
-plt.xticks(x, x_labels, rotation=90)
-
-ax1.set_xlabel("network")
-
-ax1.set_ylabel("user_cost", color="tab:red")
-line1, = ax1.plot(x, y, color="tab:red", label="user_cost", marker="s", linestyle="dashed")
-ax1.tick_params(axis="y", labelcolor="tab:red")
-ax1.grid(which="major", alpha=0.7, axis="x")
-ax1.grid(which="major", alpha=0.7, axis="y")
-# display data points on chart
-for i, txt in enumerate(y):
-    ax1.annotate(round(wei2gwei(txt)), (x[i], y[i]))
-    
-ax1.yaxis.set_major_formatter(lambda x, pos=None: f"{wei2gwei(x):,}"[:-2].replace(",", " ")+" gwei")
+    # save data that was plotted as a csv file
+    with open(f"{script_path}/{filename}.csv", 'w') as f:
+        f.write(f"network,type,value\n")
+        for i, d in enumerate(data):
+            values = d['values']
+            label = d['label']
+            for j, v in enumerate(values):
+                f.write(f"{labels[j]},{label},{v}\n")
 
 
+def make_chart_cost_by_network():
+    # for each network, calculate average cost for user and average cost for app
 
-ax2 = ax1.twinx()
-ax2.set_ylabel("app_cost", color="tab:blue")
-line2, = ax2.plot(x, y2, color="tab:blue", label="app_cost", marker="o")
-ax2.tick_params(axis="y", labelcolor="tab:blue")
-ax2.yaxis.set_major_formatter(lambda x, pos=None: f"{wei2gwei(x):,}"[:-2].replace(",", " ")+" gwei")
+    networks_avg_cost = []
+    network_names = []
 
-plt.title("średni koszt akceptacji transakcji dla różnych sieci")
-plt.legend([line1, line2], ["user_cost", "app_cost"], loc="center right")
-plt.show()
+    for (network, data) in networks_data:
+        avg_cost_user = 0
+        avg_cost_app = 0
 
-# def make_bar_chart(x_labels, y_values1, y)
+        for m in data:
+            avg_cost_user += m["user_cost_eth"]
+            avg_cost_app += m["app_cost_eth"]
 
+        avg_cost_user /= len(data)
+        avg_cost_app /= len(data)
+
+        network_names.append(network_config[network]["name"])
+        networks_avg_cost.append((avg_cost_user, avg_cost_app))
+
+    groups = [
+        {
+            "label": "GiveAccess",
+            "color": plot_colors[0],
+            "values": [avg_cost_user for avg_cost_user, avg_cost_app in networks_avg_cost]
+        },
+        {
+            "label": "ReceiveAccess",
+            "color": plot_colors[1],
+            "values": [avg_cost_app for avg_cost_user, avg_cost_app in networks_avg_cost]
+        }
+    ]
+    plot_grouped_bar_chart_with_labels(
+        network_names, groups, "Sredni koszt wywolania metod kontraktu, dla kazdej sieci", "Siec", "Koszt (ETH)", "avg_cost_by_network")
+
+
+def main():
+    make_chart_cost_by_network()
+
+
+if __name__ == "__main__":
+    main()
