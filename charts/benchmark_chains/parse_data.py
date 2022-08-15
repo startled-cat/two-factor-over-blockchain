@@ -55,7 +55,10 @@ def load_data():
     #     # remove newline characters from each line
     #     networks = [network.rstrip() for network in networks]
     
-    networks = network_config.keys()
+    networks = list(network_config.keys())
+    
+    # sort networks by their name
+    networks.sort(key=lambda x: network_config[x]["name"], reverse=True)
 
     # print(networks)
 
@@ -75,6 +78,15 @@ def load_data():
                 data[key]["app_cost_eth"] = data[key]["app_cost"] * network_config[network]["to_eth"]
                 data[key]["app_gas_price_eth"] = data[key]["app_gas_price"] * network_config[network]["to_eth"]
                 data_list.append(data[key])
+                
+            # filter out incomplete data
+            data_list = [d for d in data_list if d["user_time"][-1] > 0]
+            data_list = [d for d in data_list if d["app_time"][-1] > 0]
+            data_list = [d for d in data_list if d["user_time"][0] > 0]
+            data_list = [d for d in data_list if d["app_time"][0] > 0]
+            
+
+            print(f"{network}: {len(data_list)}")
             network_data.append((network, data_list))
 
     # print(f"loaded data from {len(network_data)} networks")

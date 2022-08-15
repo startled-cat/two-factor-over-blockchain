@@ -1,79 +1,90 @@
 
 network_config = {
-    "rinkeby" : {
-        "to_eth" : 1,
+    "rinkeby": {
+        "to_eth": 1,
         "consensus": "",
-        "layer": "",
+        "layer": "L1",
+        "consensus": "POA",
         "name": "Ethereum Rinkeby",
         "symbol": "ETH",
     },
-    "kovan-infura" : {
-        "to_eth" : 1,
+    "kovan-infura": {
+        "to_eth": 1,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "POA",
         "name": "Ethereum Kovan",
         "symbol": "ETH",
     },
-    "goerli" : {
-        "to_eth" : 1,
+    "goerli": {
+        "to_eth": 1,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "POA", 
         "name": "Ethereum Goerli",
         "symbol": "ETH",
     },
-    "ropsten" : {
-        "to_eth" : 1,
+    "ropsten": {
+        "to_eth": 1,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "POS", 
         "name": "Ethereum Ropsten",
         "symbol": "ETH",
     },
-    "polygon-ankr" : {
-        "to_eth" : 0.00050542,
+    "polygon-ankr": {
+        "to_eth": 0.00050542,
         "consensus": "",
-        "layer" : "",
+        "layer": "L2",
+        "consensus": "POS", 
         "name": "Polygon",
         "symbol": "MATIC",
     },
-    "arbitrum-testnet" : {
-        "to_eth" : 1,
+    "arbitrum-testnet": {
+        "to_eth": 1,
         "consensus": "",
-        "layer" : "",
+        "layer": "L2",
+        "consensus": "", 
         "name": "Arbitrum",
         "symbol": "ETH",
     },
-    "bsc-test" : {
-        "to_eth" : 0.16689175,
+    "bsc-test": {
+        "to_eth": 0.16689175,
         "consensus": "",
-        "layer" : "",
-        "name": "Binance Smart Chain",   
+        "layer": "L1",
+        "consensus": "POS", 
+        "name": "Binance Smart Chain",
         "symbol": "BNB",
     },
-    "avax-test" : {
-        "to_eth" : 0.01491201,
+    "avax-test": {
+        "to_eth": 0.01491201,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "", 
         "name": "Avalanche",
         "symbol": "AVAX",
     },
-    "optimism-test" : {
-        "to_eth" : 0.00079557,
+    "optimism-test": {
+        "to_eth": 0.00079557,
         "consensus": "",
-        "layer" : "",
-        "name": "OP",
-        "symbol": "",
+        "layer": "L2",
+        "consensus": "", 
+        "name": "Optimism",
+        "symbol": "OP",
     },
-    "ftm-test" : {
-        "to_eth" : 0.00020121,
+    "ftm-test": {
+        "to_eth": 0.00020121,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "Lachesis aBFT", 
         "name": "Fantom",
         "symbol": "FTM",
     },
-    "harmony-devnet" : {
-        "to_eth" : 0.000000314930,
+    "harmony-devnet": {
+        "to_eth": 0.000000314930,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "FBFT", 
         "name": "Harmony",
         "symbol": "ONE",
     },
@@ -82,10 +93,11 @@ network_config = {
     #     "consensus": "",
     #     "layer" : ""
     # },
-    "aurora-test" : {
-        "to_eth" : 1,
+    "aurora-test": {
+        "to_eth": 1,
         "consensus": "",
-        "layer" : "",
+        "layer": "L1",
+        "consensus": "dPOS + BFT", 
         "name": "Aurora",
         "symbol": "ETH",
     }
