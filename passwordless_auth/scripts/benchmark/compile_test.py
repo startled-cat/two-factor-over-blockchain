@@ -107,7 +107,8 @@ solcVersions = [
 
 optimizeRuns = [*range(100, 4_001, 200)]
 optimizeRunsLog = [None, 0, 1, 10, 100, 1_000,
-                   10_000, 100_000, 1_000_000, 10_000_000]
+                   10_000, 100_000, 1_000_000, 10_000_000,
+                   100_000_000, 1_000_000_000, 2**32-1]
 
 
 def compile_from_source(source, settings):

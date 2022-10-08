@@ -30,17 +30,17 @@ def chart_optimization_runs(data_path=None, show=False, save_as=None):
         return f"{solc_optimizer_runs[math.floor(x)]:,}".replace(",", " ")
 
     # prepare chart
-    plt.rcParams["figure.figsize"] = (8, 5)
+    plt.rcParams["figure.figsize"] = (8, 4)
     fig, ax1 = plt.subplots()
 
     fig.tight_layout()
     plt.xticks(x, solc_optimizer_runs, rotation=90)
-    plt.subplots_adjust(top=0.9, left=0.15, right=0.85, bottom=0.25)
+    plt.subplots_adjust(top=0.85, left=0.15, right=0.85, bottom=0.3)
 
     color1 = "tab:red"
     color2 = "tab:blue"
-    label1 = "gas na wykonanie transakcji"
-    label2 = "gas na wdrożenie kontraktu"
+    label1 = "Gas - wykonanie transakcji"
+    label2 = "Gas - wdrożenie kontraktu"
 
     ax1.set_xlabel(
         f"Wartość parametru \"Optimization runs\"")
@@ -62,9 +62,9 @@ def chart_optimization_runs(data_path=None, show=False, save_as=None):
         lambda x, pos=None: f"{x:,}"[:-2].replace(",", " "))
 
     plt.title(
-        f"Zapotrzebowanie na gas, zależnie od parametru \"Optimization runs\" \ndla kompilatora solc w wersji {solc_version}")
+        f"Zapotrzebowanie na gas, zależnie od parametru \"Optimization runs\"")
 
-    plt.legend([line1, line2], [label1, label2], loc='center right')
+    plt.legend([line1, line2], [label1, label2], bbox_to_anchor=(1, 0.25), loc='center right')
 
     if show:
         plt.show()
@@ -77,6 +77,18 @@ def chart_compiler_versions(show=False, save_as=None):
     stats = load_data("../data/compare_compiler_versions.json")
 
     optimization_runs = stats[0]["solcOptimizerRuns"]
+    # leave only newest minor versions
+    filteredStats = []
+    for s in reversed(stats):
+        if s["solcVersion"] in [
+            "0.4.26",
+            "0.5.17",
+            "0.6.12",
+            "0.7.6",
+            "0.8.15",
+        ]:
+            filteredStats.append(s)
+    stats = filteredStats
     # prepare data
     x = [i for i in range(0, len(stats))]
     solc_version = [s["solcVersion"] for s in stats]
@@ -84,15 +96,15 @@ def chart_compiler_versions(show=False, save_as=None):
     tx_gas_used = [s["userGasUsed"]+s["appGasUsed"] for s in stats]
 
     # prepare chart
-    plt.rcParams["figure.figsize"] = (14, 4)
+    plt.rcParams["figure.figsize"] = (6, 4)
 
     fig, ax1 = plt.subplots()
     fig.tight_layout()
     plt.xticks(x, solc_version, rotation=90)
-    plt.subplots_adjust(top=0.9, left=0.08, right=0.9, bottom=0.25)
+    plt.subplots_adjust(top=0.9, left=0.15, right=0.85, bottom=0.25)
 
     color1 = "tab:red"
-    label1 = "gas na wykonanie transakcji"
+    label1 = "Gas - wykonanie transakcji"
     ax1.set_xlabel(
         f"Wersja kompilatora Solidity")
     line1, = ax1.plot(x, tx_gas_used, color=color1, linestyle="dashed",
@@ -102,7 +114,7 @@ def chart_compiler_versions(show=False, save_as=None):
 
     ax2 = ax1.twinx()
     color2 = "tab:blue"
-    label2 = "gas na wdrożenie kontraktu"
+    label2 = "Gas - wdrożenie kontraktu"
     ax2.set_ylabel(label2, color=color2)
     line2, = ax2.plot(x, deployment_gas_used, color=color2,
                       label=label2, marker="o")
@@ -120,9 +132,9 @@ def chart_compiler_versions(show=False, save_as=None):
         lambda x, pos=None: f"{x:,}"[:-2].replace(",", " "))
 
     plt.title(
-        f"Zapotrzebowanie na gas, zależne od wersji kompilatora solc (\"Optimization runs\" : {optimization_runs})")
+        f"Zapotrzebowanie na gas dla kolejnych wersji kompilatora")
 
-    ax1.legend([line1, line2], [label1, label2], loc='center left')
+    ax1.legend([line1, line2], [label1, label2], loc='upper left')
 
     if show:
         plt.show()
@@ -142,9 +154,9 @@ def main():
         show=False,
         save_as="images/compilers_optimization_2.svg")
 
-    chart_compiler_versions(
-        show=False,
-        save_as="images/compilers_versions.svg")
+    # chart_compiler_versions(
+    #     show=False,
+    #     save_as="images/compilers_versions.svg")
 
 
 if __name__ == "__main__":
