@@ -1,61 +1,61 @@
 network,type,value
-Polygon,5 bloków,31.114832639694214
-Optimism,5 bloków,12.26855754852295
-Harmony,5 bloków,21.310444355010986
-Fantom,5 bloków,49.90508198738098
-Ethereum Ropsten,5 bloków,75.46796548366547
-Ethereum Rinkeby,5 bloków,74.27347540855408
-Ethereum Kovan,5 bloków,26.02599811553955
-Ethereum Goerli,5 bloków,75.64260804653168
-Binance Smart Chain,5 bloków,18.909634947776794
-Avalanche,5 bloków,18.51460552215576
-Aurora,5 bloków,12.452655911445618
-Arbitrum,5 bloków,33.01935398578644
-Polygon,4 bloki,25.933698654174805
-Optimism,4 bloki,9.174306988716125
-Harmony,4 bloki,17.772803783416748
-Fantom,4 bloki,36.07848298549652
-Ethereum Ropsten,4 bloki,60.634921193122864
-Ethereum Rinkeby,4 bloki,59.30486595630646
-Ethereum Kovan,4 bloki,21.364757418632507
-Ethereum Goerli,4 bloki,60.72366404533386
-Binance Smart Chain,4 bloki,15.800580859184265
-Avalanche,4 bloki,15.599844694137573
-Aurora,4 bloki,11.762849807739258
-Arbitrum,4 bloki,26.25950789451599
-Polygon,3 bloki,21.195881247520447
-Optimism,3 bloki,6.443165302276611
-Harmony,3 bloki,14.28747272491455
-Fantom,3 bloki,20.354722499847412
-Ethereum Ropsten,3 bloki,47.882068037986755
-Ethereum Rinkeby,3 bloki,44.33659613132477
-Ethereum Kovan,3 bloki,17.06559932231903
-Ethereum Goerli,3 bloki,45.46706283092499
-Binance Smart Chain,3 bloki,12.847139358520508
-Avalanche,3 bloki,12.558675169944763
-Aurora,3 bloki,11.178069949150085
-Arbitrum,3 bloki,16.824706435203552
-Polygon,2 bloki,15.617221593856812
-Optimism,2 bloki,4.8633328676223755
-Harmony,2 bloki,10.798804879188538
-Fantom,2 bloki,9.746304869651794
-Ethereum Ropsten,2 bloki,34.70556342601776
-Ethereum Rinkeby,2 bloki,29.362914443016052
-Ethereum Kovan,2 bloki,12.385148525238037
-Ethereum Goerli,2 bloki,29.744861841201782
-Binance Smart Chain,2 bloki,9.843601703643799
-Avalanche,2 bloki,9.455693244934082
-Aurora,2 bloki,10.383665084838867
-Arbitrum,2 bloki,8.576413989067078
-Polygon,1 blok,10.476461052894592
-Optimism,1 blok,3.525414824485779
-Harmony,1 blok,7.455903768539429
-Fantom,1 blok,1.4593005180358887
-Ethereum Ropsten,1 blok,19.874327778816223
-Ethereum Rinkeby,1 blok,14.462247371673584
-Ethereum Kovan,1 blok,8.484670996665955
-Ethereum Goerli,1 blok,15.519567012786865
-Binance Smart Chain,1 blok,6.853348255157471
-Avalanche,1 blok,3.983113169670105
-Aurora,1 blok,9.196050643920898
-Arbitrum,1 blok,1.769025444984436
+Arbitrum,5 potwierdzeń,33.01935398578644
+Harmony,5 potwierdzeń,21.310444355010986
+Polygon,5 potwierdzeń,31.033069729804993
+Optimism,5 potwierdzeń,12.26855754852295
+Avalanche,5 potwierdzeń,18.51460552215576
+Binance Smart Chain,5 potwierdzeń,18.909634947776794
+Aurora,5 potwierdzeń,12.452655911445618
+Fantom,5 potwierdzeń,49.90508198738098
+Ethereum Ropsten,5 potwierdzeń,75.46796548366547
+Ethereum Goerli,5 potwierdzeń,75.64260804653168
+Ethereum Kovan,5 potwierdzeń,26.02599811553955
+Ethereum Rinkeby,5 potwierdzeń,74.27347540855408
+Arbitrum,4 potwierdzenia,26.25950789451599
+Harmony,4 potwierdzenia,17.772803783416748
+Polygon,4 potwierdzenia,25.907861590385437
+Optimism,4 potwierdzenia,9.174306988716125
+Avalanche,4 potwierdzenia,15.599844694137573
+Binance Smart Chain,4 potwierdzenia,15.800580859184265
+Aurora,4 potwierdzenia,11.762849807739258
+Fantom,4 potwierdzenia,36.07848298549652
+Ethereum Ropsten,4 potwierdzenia,60.634921193122864
+Ethereum Goerli,4 potwierdzenia,60.72366404533386
+Ethereum Kovan,4 potwierdzenia,21.364757418632507
+Ethereum Rinkeby,4 potwierdzenia,59.30486595630646
+Arbitrum,3 potwierdzenia,16.824706435203552
+Harmony,3 potwierdzenia,14.28747272491455
+Polygon,3 potwierdzenia,21.28464913368225
+Optimism,3 potwierdzenia,6.443165302276611
+Avalanche,3 potwierdzenia,12.558675169944763
+Binance Smart Chain,3 potwierdzenia,12.847139358520508
+Aurora,3 potwierdzenia,11.178069949150085
+Fantom,3 potwierdzenia,20.354722499847412
+Ethereum Ropsten,3 potwierdzenia,47.882068037986755
+Ethereum Goerli,3 potwierdzenia,45.46706283092499
+Ethereum Kovan,3 potwierdzenia,17.06559932231903
+Ethereum Rinkeby,3 potwierdzenia,44.33659613132477
+Arbitrum,2 potwierdzenia,8.576413989067078
+Harmony,2 potwierdzenia,10.798804879188538
+Polygon,2 potwierdzenia,15.697171449661255
+Optimism,2 potwierdzenia,4.8633328676223755
+Avalanche,2 potwierdzenia,9.455693244934082
+Binance Smart Chain,2 potwierdzenia,9.843601703643799
+Aurora,2 potwierdzenia,10.383665084838867
+Fantom,2 potwierdzenia,9.746304869651794
+Ethereum Ropsten,2 potwierdzenia,34.70556342601776
+Ethereum Goerli,2 potwierdzenia,29.744861841201782
+Ethereum Kovan,2 potwierdzenia,12.385148525238037
+Ethereum Rinkeby,2 potwierdzenia,29.362914443016052
+Arbitrum,1 potwierdzenie,1.769025444984436
+Harmony,1 potwierdzenie,7.455903768539429
+Polygon,1 potwierdzenie,10.619316577911377
+Optimism,1 potwierdzenie,3.525414824485779
+Avalanche,1 potwierdzenie,3.983113169670105
+Binance Smart Chain,1 potwierdzenie,6.853348255157471
+Aurora,1 potwierdzenie,9.196050643920898
+Fantom,1 potwierdzenie,1.4593005180358887
+Ethereum Ropsten,1 potwierdzenie,19.874327778816223
+Ethereum Goerli,1 potwierdzenie,15.519567012786865
+Ethereum Kovan,1 potwierdzenie,8.484670996665955
+Ethereum Rinkeby,1 potwierdzenie,14.462247371673584

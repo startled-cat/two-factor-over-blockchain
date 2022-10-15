@@ -53,7 +53,7 @@ network_config = {
         "consensus": "",
         "layer": "L1",
         "consensus": "POS", 
-        "name": "BNB Smart Chain",
+        "name": "Binance Smart Chain",
         "symbol": "BNB",
     },
     "avax-test": {

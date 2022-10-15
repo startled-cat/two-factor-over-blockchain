@@ -44,6 +44,9 @@ def create_db(db_path):
 
 
 def load_data():
+    def swap_elements(l, a, b):
+        l[a], l[b] = l[b], l[a]
+        return l
     # path to directory where this script is located
 
     data_dir_path = f'{script_path}/../../data/benchmark/network'
@@ -56,9 +59,12 @@ def load_data():
     #     networks = [network.rstrip() for network in networks]
     
     networks = list(network_config.keys())
+    # reorder networks
+    networks = swap_elements(networks, 9, 4)
+    networks = swap_elements(networks, 11, 5)
     
     # sort networks by their name
-    networks.sort(key=lambda x: network_config[x]["name"], reverse=True)
+    # networks.sort(key=lambda x: network_config[x]["name"], reverse=True)
 
     # print(networks)
 
@@ -121,6 +127,9 @@ def main():
     # add data to database
     add_network_data_to_db(network_data, db_path)
 
+def test():
+    load_data()
 
 if __name__ == "__main__":
-    main()
+    # main()
+    test()
