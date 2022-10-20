@@ -113,11 +113,13 @@ def make_chart_cost(network_name, data, title, x_label, y_label, filename):
 def make_chart_time(network_name, data, title, x_label, y_label, filename):
     plt.rcdefaults()
     fig, ax = plt.subplots()
-    plt.subplots_adjust(top=0.9, left=0.11, right=0.95, bottom=0.15)
     if TIMEFRAME_24H:
+        plt.subplots_adjust(top=0.9, left=0.13, right=0.95, bottom=0.15)
         fig.set_size_inches(4.5, 3)
     else:
+        plt.subplots_adjust(top=0.9, left=0.12, right=0.95, bottom=0.15)
         fig.set_size_inches(8, 4)
+
 
     # draw line chart
     ax.plot(data['date'], data['time2'],
