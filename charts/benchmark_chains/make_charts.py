@@ -11,9 +11,10 @@ import pandas as pd
 import datetime
 import scipy.stats as stats
 
-TIMEFRAME_24H = False
+TIMEFRAME_24H = True
 FILENAME_POSTFIX = '24h' if TIMEFRAME_24H else '7d'
-
+MAKE_CHART_COST = False
+MAKE_CHART_TIME = True
 
 networks_data = load_data()
 
@@ -72,6 +73,7 @@ def make_chart_cost(network_name, data, title, x_label, y_label, filename):
     # set title and labels
     ax.legend(loc="upper right")
     ax.grid(which="major", alpha=0.7, axis="x")
+    ax.grid(which="major", alpha=0.7, axis="y")
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
@@ -111,8 +113,11 @@ def make_chart_cost(network_name, data, title, x_label, y_label, filename):
 def make_chart_time(network_name, data, title, x_label, y_label, filename):
     plt.rcdefaults()
     fig, ax = plt.subplots()
-    plt.subplots_adjust(top=0.9, left=0.1, right=0.95, bottom=0.15)
-    fig.set_size_inches(8, 5)
+    plt.subplots_adjust(top=0.9, left=0.11, right=0.95, bottom=0.15)
+    if TIMEFRAME_24H:
+        fig.set_size_inches(4.5, 3)
+    else:
+        fig.set_size_inches(8, 4)
 
     # draw line chart
     ax.plot(data['date'], data['time2'],
@@ -123,17 +128,22 @@ def make_chart_time(network_name, data, title, x_label, y_label, filename):
     # set title and labels
     ax.legend(loc="upper right")
     ax.grid(which="major", alpha=0.7, axis="x")
+    ax.grid(which="major", alpha=0.7, axis="y")
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
 
     # set max y-axis so that all values are visible
-    ax.set_ylim(0, 1.5 * max(sorted(data['time5'])[5:-6]))
+    if TIMEFRAME_24H:
+        ax.set_ylim(0, 1.5 * max(sorted(data['time5'])[5:-6]))
 
     # rotate x-axis labels  and set date format
-    fig.autofmt_xdate()
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m.%Y"))
-    plt.xticks(rotation=45)
+    if TIMEFRAME_24H:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%-H"))
+    else:
+        fig.autofmt_xdate()
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m.%Y"))
+        plt.xticks(rotation=45)
 
     # ax.yaxis.set_major_formatter(
     #     lambda x, pos=None: f"{wei2gwei(x):,}"[:-2].replace(",", " "))
@@ -203,16 +213,19 @@ def main():
             'user_cost': [d['user_cost_eth'] for d in data_cost],
             'app_cost': [d['app_cost_eth'] for d in data_cost]
         })
+        
+        if MAKE_CHART_COST:
 
-        # save dataframe as csv
-        data_cost.to_csv(os.path.join(
-            save_path_network, f"cost_over_time_{name}_{FILENAME_POSTFIX}.csv"), index=False)
+            # save dataframe as csv
+            data_cost.to_csv(os.path.join(
+                save_path_network, f"cost_over_time_{name}_{FILENAME_POSTFIX}.csv"), index=False)
 
-        # make chart
-        chart_filepath = os.path.join(
-            save_path_network, f"cost_over_time_{name}_{FILENAME_POSTFIX}.svg")
-        make_chart_cost(name, data_cost, title=f"Koszt transakcji dla sieci '{network_config[name]['name']}'",
-                        x_label=x_label, y_label=f"Koszt ({eth_unit} ETH)", filename=chart_filepath)
+            # make chart
+            chart_filepath = os.path.join(
+                save_path_network, f"cost_over_time_{name}_{FILENAME_POSTFIX}.svg")
+            
+            make_chart_cost(name, data_cost, title=f"Koszt transakcji dla sieci '{network_config[name]['name']}'",
+                            x_label=x_label, y_label=f"Koszt ({eth_unit} ETH)", filename=chart_filepath)
 
         # prepare data for confimration time
         data_time = sorted(data, key=lambda x: x['timestamp'])
@@ -227,13 +240,14 @@ def main():
             'time4': [(d['user_time'][3] + d['app_time'][3])/2 for d in data_time],
             'time5': [(d['user_time'][4] + d['app_time'][4])/2 for d in data_time],
         })
-
-        # save dataframe as csv
-        data_time.to_csv(os.path.join(
-            save_path_network, "time_over_time_%s.csv" % name), index=False)
-        chart_filepath = os.path.join(save_path_network, "time_over_time_%s.svg" % name)
-        make_chart_time(
-            name, data_time, title=f"Czas do uzyskania potwierdzen transakcji dla sieci '{network_config[name]['name']}'", x_label=x_label, y_label="Czas (s)", filename=chart_filepath)
+        
+        if MAKE_CHART_TIME:
+            # save dataframe as csv
+            data_time.to_csv(os.path.join(
+                save_path_network, f"time_over_time_{name}_{FILENAME_POSTFIX}.csv"), index=False)
+            chart_filepath = os.path.join(save_path_network, f"time_over_time_{name}_{FILENAME_POSTFIX}.svg")
+            make_chart_time(
+                name, data_time, title=f"Czas potwierdzeń dla sieci '{network_config[name]['name']}'", x_label=x_label, y_label="Czas (s)", filename=chart_filepath)
 
 
 if __name__ == "__main__":
