@@ -11,10 +11,10 @@ import pandas as pd
 import datetime
 import scipy.stats as stats
 
-TIMEFRAME_24H = True
+TIMEFRAME_24H = False
 FILENAME_POSTFIX = '24h' if TIMEFRAME_24H else '7d'
 MAKE_CHART_COST = False
-MAKE_CHART_TIME = True
+MAKE_CHART_TIME = False
 
 networks_data = load_data()
 
@@ -55,6 +55,16 @@ def remove_outliers(data):
         return []
 
 
+def variance(data):
+    r = (
+        data['time1'].var(),
+        data['time2'].var(),
+        data['time3'].var(),
+        data['time4'].var(),
+        data['time5'].var())
+    return r
+
+
 def make_chart_cost(network_name, data, title, x_label, y_label, filename):
     plt.rcdefaults()
     fig, ax = plt.subplots()
@@ -81,10 +91,9 @@ def make_chart_cost(network_name, data, title, x_label, y_label, filename):
     # set max y-axis value to triple the average cost
     if TIMEFRAME_24H:
         ax.set_ylim(0, 3 * np.median(data['user_cost']))
-    
 
     # rotate x-axis labels  and set date format
-    
+
     if TIMEFRAME_24H:
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%-H"))
     else:
@@ -94,8 +103,7 @@ def make_chart_cost(network_name, data, title, x_label, y_label, filename):
 
     ax.yaxis.set_major_formatter(
         lambda x, pos=None: f"{x:,}"[:-2].replace(",", " "))
-    
-    
+
     if network_name == 'harmony-devnet':
         ax.yaxis.set_major_formatter(
             lambda x, pos=None: f"{x:.2f}")
@@ -119,7 +127,6 @@ def make_chart_time(network_name, data, title, x_label, y_label, filename):
     else:
         plt.subplots_adjust(top=0.9, left=0.12, right=0.95, bottom=0.15)
         fig.set_size_inches(8, 4)
-
 
     # draw line chart
     ax.plot(data['date'], data['time2'],
@@ -160,6 +167,8 @@ def main():
 
     x_label = "Data" if not TIMEFRAME_24H else "Godzina"
 
+    variance_test = {}
+
     for (name, data) in networks_data:
         print("Generating charts for", name)
         save_path_network = os.path.join(script_path, name)
@@ -167,8 +176,8 @@ def main():
         if not os.path.exists(save_path_network):
             os.makedirs(save_path_network)
 
-        eth_unit = "Gwei" #if name not in ['optimism-test'] else "Wei"
-        
+        eth_unit = "Gwei"  # if name not in ['optimism-test'] else "Wei"
+
         # convert cost to gwei
         if eth_unit == "Gwei":
             for e in data:
@@ -201,7 +210,8 @@ def main():
                     new_entry['app_time'][i] = mean(app_times)
 
                 for field in fields_to_average:
-                    new_entry[field] = mean(remove_outliers([x[field] for x in data_in_hour]))
+                    new_entry[field] = mean(remove_outliers(
+                        [x[field] for x in data_in_hour]))
 
                 new_data.append(new_entry)
 
@@ -215,7 +225,7 @@ def main():
             'user_cost': [d['user_cost_eth'] for d in data_cost],
             'app_cost': [d['app_cost_eth'] for d in data_cost]
         })
-        
+
         if MAKE_CHART_COST:
 
             # save dataframe as csv
@@ -225,7 +235,7 @@ def main():
             # make chart
             chart_filepath = os.path.join(
                 save_path_network, f"cost_over_time_{name}_{FILENAME_POSTFIX}.svg")
-            
+
             make_chart_cost(name, data_cost, title=f"Koszt transakcji dla sieci '{network_config[name]['name']}'",
                             x_label=x_label, y_label=f"Koszt ({eth_unit} ETH)", filename=chart_filepath)
 
@@ -242,14 +252,29 @@ def main():
             'time4': [(d['user_time'][3] + d['app_time'][3])/2 for d in data_time],
             'time5': [(d['user_time'][4] + d['app_time'][4])/2 for d in data_time],
         })
-        
+
+        variance_test[network_config[name]['name']] = variance(data_time)
+
         if MAKE_CHART_TIME:
             # save dataframe as csv
             data_time.to_csv(os.path.join(
                 save_path_network, f"time_over_time_{name}_{FILENAME_POSTFIX}.csv"), index=False)
-            chart_filepath = os.path.join(save_path_network, f"time_over_time_{name}_{FILENAME_POSTFIX}.svg")
+            chart_filepath = os.path.join(
+                save_path_network, f"time_over_time_{name}_{FILENAME_POSTFIX}.svg")
             make_chart_time(
                 name, data_time, title=f"Czas potwierdzeń dla sieci '{network_config[name]['name']}'", x_label=x_label, y_label="Czas (s)", filename=chart_filepath)
+
+    variance_pd = pd.DataFrame({
+        'name': variance_test.keys(),
+        'variance_1': [x[0] for x in variance_test.values()],
+        'variance_2': [x[1] for x in variance_test.values()],
+        'variance_3': [x[2] for x in variance_test.values()],
+        'variance_4': [x[3] for x in variance_test.values()],
+        'variance_5': [x[4] for x in variance_test.values()]
+    })
+    # variance_pd = variance_pd.sort_values('variance_5')
+    variance_pd.to_csv(os.path.join(script_path, "variance-time.csv"), index=False)
+    print(variance_pd)
 
 
 if __name__ == "__main__":
