@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract Authentication {
+contract AuthenticationOTP {
     struct OneTimePassword {
         uint256 password;
         uint256 validUntill;

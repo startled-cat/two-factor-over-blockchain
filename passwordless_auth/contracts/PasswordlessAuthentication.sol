@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.1.2;
+pragma solidity ^0.8.0;
 
 contract PasswordlessAuthentication {
     mapping(address => mapping(address => uint256)) public givenAccessUntill;

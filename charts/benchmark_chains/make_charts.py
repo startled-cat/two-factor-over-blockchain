@@ -170,6 +170,9 @@ def main():
     variance_test = {}
 
     for (name, data) in networks_data:
+        if name != 'rinkeby':
+            continue
+        
         print("Generating charts for", name)
         save_path_network = os.path.join(script_path, name)
         # create directory if it doesn't exist
@@ -225,6 +228,8 @@ def main():
             'user_cost': [d['user_cost_eth'] for d in data_cost],
             'app_cost': [d['app_cost_eth'] for d in data_cost]
         })
+        
+        
 
         if MAKE_CHART_COST:
 
@@ -252,6 +257,9 @@ def main():
             'time4': [(d['user_time'][3] + d['app_time'][3])/2 for d in data_time],
             'time5': [(d['user_time'][4] + d['app_time'][4])/2 for d in data_time],
         })
+        
+        if name == 'rinkeby':
+            data_time = data_time[data_time['time5'] < 100]
 
         variance_test[network_config[name]['name']] = variance(data_time)
 
@@ -272,6 +280,8 @@ def main():
         'variance_4': [x[3] for x in variance_test.values()],
         'variance_5': [x[4] for x in variance_test.values()]
     })
+    variance_pd['average'] = variance_pd.mean(numeric_only=True, axis=1)
+
     # variance_pd = variance_pd.sort_values('variance_5')
     variance_pd.to_csv(os.path.join(script_path, "variance-time.csv"), index=False)
     print(variance_pd)

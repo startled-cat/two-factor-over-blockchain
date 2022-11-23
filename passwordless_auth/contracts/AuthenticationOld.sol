@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.1.2;
 
-contract Authentication {
+contract AuthenticationOld {
     struct Token {
         address user;
         address app;

@@ -3,7 +3,7 @@ import time
 from termcolor import colored, cprint
 
 
-data_directory = f"/home/adamko-wsl/git/two-factor-over-blockchain/data/benchmark/network"
+data_directory = f"/home/adamko/git/two-factor-over-blockchain/data/benchmark/network"
 file_regex = ".json"
 
 # recursively list files from a directory
