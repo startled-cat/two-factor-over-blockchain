@@ -170,8 +170,8 @@ def main():
     variance_test = {}
 
     for (name, data) in networks_data:
-        if name != 'rinkeby':
-            continue
+        # if name != 'rinkeby':
+        #     continue
         
         print("Generating charts for", name)
         save_path_network = os.path.join(script_path, name)
@@ -258,8 +258,8 @@ def main():
             'time5': [(d['user_time'][4] + d['app_time'][4])/2 for d in data_time],
         })
         
-        if name == 'rinkeby':
-            data_time = data_time[data_time['time5'] < 100]
+        # if name == 'rinkeby':
+        #     data_time = data_time[data_time['time5'] < 100]
 
         variance_test[network_config[name]['name']] = variance(data_time)
 
